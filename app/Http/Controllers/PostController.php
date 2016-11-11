@@ -75,17 +75,25 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @param int $id
-     * @param string $title
-     * @param string $content
      * @return \Illuminate\Http\Response
      */
-    public function store(int $id, string $title, string $content)
+    public function store(Request $request, int $id)
     {
-        $post = $this->postService->createPostForBlog($id, $title, $content);
+        $post = $this->postService->createPostForBlog($id, $request['title'], $request['content']);
 
         return response()->json([$post]);
     }
+
+    /*public function store(int $id, string $title, string $content)
+    {
+        $post = $this->postService->createPostForBlog($id, $title, $content]);
+
+        return response()->json([$post]);
+    }*/
+
+
 
     /**
      * Update the specified resource in storage.

@@ -35,7 +35,7 @@ Route::group(['prefix' => 'blogs'], function()
     Route::delete('/{id}', 'BlogController@destroy');
 
     // Store new post in blog
-    Route::post('/{id}/post/{title}/{content}', 'PostController@store');
+    Route::post('/{id}/post', 'PostController@store');
 
     // Get all posts for blog
     Route::get('/{id}/posts', 'PostController@getBlogPosts');
