@@ -39,7 +39,7 @@ class BlogController extends Controller
     {
         $blogs = $this->blogRepository->all();
 
-        return response()->json([$blogs]);
+        return response()->json($blogs);
     }
 
     /**
@@ -52,35 +52,32 @@ class BlogController extends Controller
     {
         $blog = $this->blogRepository->get($id);
 
-        return response()->json([$blog]);
+        return response()->json($blog);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param string $name
-     * @return \Illuminate\Http\Response
-     */
-    public function store(string $name)
-    {
-        $blog = $this->blogService->createForAuthorizedUser($name);
 
-        return response()->json([$blog]);
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
+        $blog = $this->blogService->createForAuthorizedUser($request['name']);
+
+        return response()->json($blog);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @param $field
-     * @param $value
-     * @return \Illuminate\Http\Response
-     */
-    public function update($id, $field, $value)
-    {
-        $blog = $this->blogService->update($id, $field, $value);
 
-        return response()->json([$blog]);
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $blog = $this->blogService->update($id, $request['field'], $request['value']);
+
+        return response()->json($blog);
     }
 
     /**
@@ -93,6 +90,6 @@ class BlogController extends Controller
     {
         $blog = $this->blogRepository->delete($id);
 
-        return response()->json([$blog]);
+        return response()->json($blog);
     }
 }

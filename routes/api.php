@@ -26,10 +26,10 @@ Route::group(['prefix' => 'blogs'], function()
     Route::get('/{id}', 'BlogController@show');
 
     // Store a new blog
-    Route::post('/{name}', 'BlogController@store');
+    Route::post('/', 'BlogController@store');
 
     // Update an existing blog
-    Route::patch('/{id}/{field}/{value}', 'BlogController@update');
+    Route::patch('/{id}', 'BlogController@update');
 
     // Delete a blog
     Route::delete('/{id}', 'BlogController@destroy');
@@ -50,12 +50,12 @@ Route::group(['prefix' => 'posts'], function()
     Route::get('/{id}', 'PostController@show');
 
     // Store comment for post
-    Route::post('/{id}/comment/{content}', 'CommentController@storePostComment');
+    Route::post('/{id}/comment', 'CommentController@storePostComment');
 
-    // Update an existing blog
-    Route::patch('/{id}/{field}/{value}', 'PostController@update');
+    // Update an existing post
+    Route::patch('/{id}', 'PostController@update');
 
-    // Delete a blog
+    // Delete a post
     Route::delete('/{id}', 'PostController@destroy');
 });
 
@@ -68,13 +68,10 @@ Route::group(['prefix' => 'comments'], function()
     Route::get('/{id}', 'CommentController@show');
 
     // Store comment reply
-    Route::post('/{id}/comment/{content}', 'CommentController@storeCommentReply');
+    Route::post('/{id}/comment', 'CommentController@storeCommentReply');
 
-    // Store comment
-    Route::post('/{id}/{type}/{content}', 'CommentController@store');
-
-    // Store a new blog
-    Route::patch('/{id}/{field}/{value}', 'CommentController@update');
+    // Update an existing comment
+    Route::patch('/{id}', 'CommentController@update');
 
     // Delete a comment
     Route::delete('/{id}', 'CommentController@destroy');

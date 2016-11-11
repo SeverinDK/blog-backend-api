@@ -48,6 +48,11 @@ class EloquentCommentRepository implements CommentRepository
      */
     public function delete(int $id)
     {
-        return Comment::find($id)->delete();
+        $comment = Comment::find($id);
+        if($comment) {
+            return $comment->delete();
+        }
+
+        return false;
     }
 }

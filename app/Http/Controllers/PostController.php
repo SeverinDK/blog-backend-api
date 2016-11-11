@@ -49,14 +49,14 @@ class PostController extends Controller
     {
         $posts = $this->postRepository->all();
 
-        return response()->json([$posts]);
+        return response()->json($posts);
     }
 
     public function getBlogPosts(int $id)
     {
         $posts = $this->blogRepository->get($id)->posts;
 
-        return response()->json([$posts]);
+        return response()->json($posts);
     }
 
     /**
@@ -69,7 +69,7 @@ class PostController extends Controller
     {
         $post = $this->postRepository->get($id);
 
-        return response()->json([$post]);
+        return response()->json($post);
     }
 
     /**
@@ -83,31 +83,21 @@ class PostController extends Controller
     {
         $post = $this->postService->createPostForBlog($id, $request['title'], $request['content']);
 
-        return response()->json([$post]);
+        return response()->json($post);
     }
-
-    /*public function store(int $id, string $title, string $content)
-    {
-        $post = $this->postService->createPostForBlog($id, $title, $content]);
-
-        return response()->json([$post]);
-    }*/
-
-
 
     /**
      * Update the specified resource in storage.
      *
+     * @param Request $request
      * @param  int $id
-     * @param $field
-     * @param $value
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, int $field, int $value)
+    public function update(Request $request, int $id)
     {
-        $post = $this->postService->update($id, $field, $value);
+        $post = $this->postService->update($id, $request['field'], $request['value']);
 
-        return response()->json([$post]);
+        return response()->json($post);
     }
 
     /**
@@ -120,6 +110,6 @@ class PostController extends Controller
     {
         $post = $this->postRepository->delete($id);
 
-        return response()->json([$post]);
+        return response()->json($post);
     }
 }

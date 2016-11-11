@@ -45,7 +45,7 @@ class CommentController extends Controller
     {
         $comments = $this->commentRepository->all();
 
-        return response()->json([$comments]);
+        return response()->json($comments);
     }
 
     /**
@@ -58,48 +58,41 @@ class CommentController extends Controller
     {
         $comment = $this->commentRepository->get($id);
 
-        return response()->json([$comment]);
+        return response()->json($comment);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param string $type
-     * @param string $content
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(string $type, string $content)
-    {
-        $comment = $this->commentService->create($type, $content);
+    public function storePostComment(Request $request, int $id) {
+        $comment = $this->postService->createComment($id, $request['content']);
 
-        return response()->json([$comment]);
-    }
-
-    public function storePostComment(int $id, string $content) {
-        $comment = $this->postService->createComment($id, $content);
-
-        return response()->json([$comment]);
-    }
-
-    public function storeCommentReply(int $id, string $content) {
-        $comment = $this->commentService->createCommentReply($id, $content);
-
-        return response()->json([$comment]);
+        return response()->json($comment);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @param $field
-     * @param $value
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(int $id, string $field, $value)
-    {
-        $comment = $this->commentService->update($id, $field, $value);
+    public function storeCommentReply(Request $request, int $id) {
+        $comment = $this->commentService->createCommentReply($id, $request['content']);
 
-        return response()->json([$comment]);
+        return response()->json($comment);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, int $id)
+    {
+        $comment = $this->commentService->update($id, $request['field'], $request['value']);
+
+        return response()->json($comment);
     }
 
     /**
@@ -112,6 +105,6 @@ class CommentController extends Controller
     {
         $comment = $this->commentRepository->delete($id);
 
-        return response()->json([$comment]);
+        return response()->json($comment);
     }
 }

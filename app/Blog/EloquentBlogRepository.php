@@ -48,6 +48,10 @@ class EloquentBlogRepository implements BlogRepository
      */
     public function delete(int $id)
     {
-        return Blog::find($id)->delete();
+        if(Blog::find($id)->delete()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -48,6 +48,10 @@ class EloquentPostRepository implements PostRepository
      */
     public function delete(int $id)
     {
-        return Post::find($id)->delete();
+        if(Post::find($id)->delete()) {
+            return true;
+        }
+
+        return false;
     }
 }
