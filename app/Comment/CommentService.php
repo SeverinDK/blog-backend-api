@@ -55,4 +55,17 @@ class CommentService
 
         return false;
     }
+
+    public function delete($id)
+    {
+        $comment = $this->commentRepository->get($id);
+
+        if($comment) {
+            if($this->commentRepository->delete($id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

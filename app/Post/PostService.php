@@ -43,7 +43,7 @@ class PostService
     public function createPostForBlog(int $id, string $title, string $content)
     {
         $blog = $this->blogRepository->get($id);
-        if($blog != null) {
+        if($blog) {
             $post = new Post([
                 'title' => $title,
                 'content' => $content,
@@ -69,6 +69,19 @@ class PostService
             'content' => $content,
             'user_id' => 1
         ]);
+    }
+
+    public function delete($id)
+    {
+        $post = $this->postRepository->get($id);
+
+        if($post) {
+            if($this->postRepository->delete($id)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

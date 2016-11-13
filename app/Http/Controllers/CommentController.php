@@ -45,7 +45,11 @@ class CommentController extends Controller
     {
         $comments = $this->commentRepository->all();
 
-        return response()->json($comments);
+        if($comments) {
+            return response()->json($comments, 200);
+        }
+
+        return response()->json([], 400);
     }
 
     /**
@@ -58,7 +62,26 @@ class CommentController extends Controller
     {
         $comment = $this->commentRepository->get($id);
 
-        return response()->json($comment);
+        if($comment) {
+            return response()->json($comment, 200);
+        }
+
+        return response()->json([], 404);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getComments($id)
+    {
+        $comments = $this->commentRepository->get($id)->comments;
+
+        if($comments) {
+            return response()->json($comments, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -69,7 +92,11 @@ class CommentController extends Controller
     public function storePostComment(Request $request, int $id) {
         $comment = $this->postService->createComment($id, $request['content']);
 
-        return response()->json($comment);
+        if($comment) {
+            return response()->json($comment, 200);
+        }
+
+        return response()->json([], 400);
     }
 
     /**
@@ -80,7 +107,11 @@ class CommentController extends Controller
     public function storeCommentReply(Request $request, int $id) {
         $comment = $this->commentService->createCommentReply($id, $request['content']);
 
-        return response()->json($comment);
+        if($comment) {
+            return response()->json($comment, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -92,7 +123,11 @@ class CommentController extends Controller
     {
         $comment = $this->commentService->update($id, $request['field'], $request['value']);
 
-        return response()->json($comment);
+        if($comment) {
+            return response()->json($comment, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -103,8 +138,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = $this->commentRepository->delete($id);
+        if($this->commentService->delete($id)) {
+            return response()->json(200);
+        }
 
-        return response()->json($comment);
+        return response()->json([], 404);
     }
 }

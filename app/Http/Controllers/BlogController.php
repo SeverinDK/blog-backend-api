@@ -39,7 +39,11 @@ class BlogController extends Controller
     {
         $blogs = $this->blogRepository->all();
 
-        return response()->json($blogs);
+        if($blogs) {
+            return response()->json($blogs, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -52,7 +56,11 @@ class BlogController extends Controller
     {
         $blog = $this->blogRepository->get($id);
 
-        return response()->json($blog);
+        if($blog) {
+            return response()->json($blog, 200);
+        }
+
+        return response()->json([], 404);
     }
 
 
@@ -64,7 +72,11 @@ class BlogController extends Controller
     {
         $blog = $this->blogService->createForAuthorizedUser($request['name']);
 
-        return response()->json($blog);
+        if($blog) {
+            return response()->json($blog, 200);
+        }
+
+        return response()->json([], 404);
     }
 
 
@@ -77,7 +89,11 @@ class BlogController extends Controller
     {
         $blog = $this->blogService->update($id, $request['field'], $request['value']);
 
-        return response()->json($blog);
+        if($blog) {
+            return response()->json($blog, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -88,8 +104,10 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        $blog = $this->blogRepository->delete($id);
+        if($this->blogService->delete($id)) {
+            return response()->json(200);
+        }
 
-        return response()->json($blog);
+        return response()->json([], 404);
     }
 }

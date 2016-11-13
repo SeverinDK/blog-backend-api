@@ -49,14 +49,22 @@ class PostController extends Controller
     {
         $posts = $this->postRepository->all();
 
-        return response()->json($posts);
+        if($posts) {
+            return response()->json($posts, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     public function getBlogPosts(int $id)
     {
         $posts = $this->blogRepository->get($id)->posts;
 
-        return response()->json($posts);
+        if($posts) {
+            return response()->json($posts, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -69,7 +77,22 @@ class PostController extends Controller
     {
         $post = $this->postRepository->get($id);
 
-        return response()->json($post);
+        if($post) {
+            return response()->json($post, 200);
+        }
+
+        return response()->json([], 404);
+    }
+
+    public function getComments($id)
+    {
+        $comments = $this->postRepository->get($id)->comments;
+
+        if($comments) {
+            return response()->json($comments, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -83,7 +106,11 @@ class PostController extends Controller
     {
         $post = $this->postService->createPostForBlog($id, $request['title'], $request['content']);
 
-        return response()->json($post);
+        if($post) {
+            return response()->json($post, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -97,7 +124,11 @@ class PostController extends Controller
     {
         $post = $this->postService->update($id, $request['field'], $request['value']);
 
-        return response()->json($post);
+        if($post) {
+            return response()->json($post, 200);
+        }
+
+        return response()->json([], 404);
     }
 
     /**
@@ -108,8 +139,10 @@ class PostController extends Controller
      */
     public function destroy(int $id)
     {
-        $post = $this->postRepository->delete($id);
+        if($this->postService->delete($id)) {
+            return response()->json(200);
+        }
 
-        return response()->json($post);
+        return response()->json([], 404);
     }
 }

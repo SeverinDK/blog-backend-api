@@ -57,6 +57,9 @@ Route::group(['prefix' => 'posts'], function()
 
     // Delete a post
     Route::delete('/{id}', 'PostController@destroy');
+
+    // Get all comments for a post
+    Route::get('/{id}/comments', 'PostController@getComments');
 });
 
 Route::group(['prefix' => 'comments'], function()
@@ -75,4 +78,7 @@ Route::group(['prefix' => 'comments'], function()
 
     // Delete a comment
     Route::delete('/{id}', 'CommentController@destroy');
+
+    // Get all replies for a comment
+    Route::get('/{id}/comments', 'CommentController@getComments');
 });

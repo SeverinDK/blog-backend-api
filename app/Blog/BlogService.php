@@ -46,4 +46,17 @@ class BlogService
 
         return false;
     }
+
+    public function delete($id)
+    {
+        $comment = $this->blogRepository->get($id);
+
+        if($comment) {
+            if($this->blogRepository->delete($id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

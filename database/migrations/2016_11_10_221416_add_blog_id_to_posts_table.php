@@ -14,7 +14,7 @@ class AddBlogIdToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function($table) {
-            $table->integer('blog_id')->references('id')->on('blogs')->nullable();
+            $table->integer('blog_id')->references('id')->on('blogs');
         });
     }
 
