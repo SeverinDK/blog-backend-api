@@ -106,4 +106,188 @@ $ curl http://domain.tld/api/blogs/1
 
 # Posts
 
+## GET /posts
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[
+	{"id":1,"title":"PostTitle","content":"PostContent","user_id":1,"created_at":"2016-11-13 22:40:05","updated_at":"2016-11-13 22:40:05","deleted_at":null,"blog_id":1},
+	{"id":1,"title":"PostTitle","content":"PostContent","user_id":1,"created_at":"2016-11-13 22:40:19","updated_at":"2016-11-13 22:40:19","deleted_at":null,"blog_id":1}
+]
+```
+
+---
+
+## GET /posts/1
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/1
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"title":"PostTitle","content":"PostContent","user_id":1,"created_at":"2016-11-13 22:40:05","updated_at":"2016-11-13 22:40:05","deleted_at":null,"blog_id":1}
+```
+
+---
+
+## GET /posts/1/comments
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/1/comments
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[
+	{"id":1,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:45:17","deleted_at":null},
+	{"id":2,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:18","updated_at":"2016-11-13 22:45:18","deleted_at":null}
+]
+```
+
+---
+
+## POST /posts/1/comment
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/1/comment -d '{"content": "Comment"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":3,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:45:47","deleted_at":null}
+```
+
+---
+
+## PATCH /posts/1
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/1 -d '{"field": "title", "value": "EditedPostTitle"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"title":"EditedPostTitle","content":"PostContent","user_id":1,"created_at":"2016-11-13 22:40:05","updated_at":"2016-11-13 22:49:31","deleted_at":null,"blog_id":1}
+```
+
+---
+
+## DELETE /blogs/1
+
+### Request Example
+
+$ curl http://domain.tld/api/posts/1
+
+### Response Example
+```
+200 OK
+```
+
 # Comments
+
+## GET /comments
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[
+	{"id":1,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:45:17","deleted_at":null},
+	{"id":2,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:18","updated_at":"2016-11-13 22:45:18","deleted_at":null}
+]
+```
+
+---
+
+## GET /comments/1
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/1
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:45:17","deleted_at":null}
+```
+
+---
+
+## GET /comments/1/comments
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/1/comments
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[
+	{"id":1,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:45:17","deleted_at":null},
+	{"id":2,"content":"Comment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:18","updated_at":"2016-11-13 22:45:18","deleted_at":null}
+]
+```
+
+---
+
+## POST /comments/1/comment
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/1/comment -d '{"content": "Reply"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"content":"Reply","user_id":1,"commentable_id":1,"commentable_type":"App\\Comment\\Comment","updated_at":"2016-11-13 22:53:07","created_at":"2016-11-13 22:53:07","id":3}
+```
+
+---
+
+## PATCH /comments/1
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/1 -d '{"field": "content", "value": "EditedComment"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"content":"EditedComment","commentable_id":1,"commentable_type":"App\\Post\\Post","user_id":1,"created_at":"2016-11-13 22:45:17","updated_at":"2016-11-13 22:54:17","deleted_at":null}
+```
+
+---
+
+## DELETE /comments/1
+
+### Request Example
+
+$ curl http://domain.tld/api/comments/1
+
+### Response Example
+```
+200 OK
+```
