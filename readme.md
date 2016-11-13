@@ -1,40 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
+# Blogs
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## GET /blogs
 
-## About Laravel
+### Request Example
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+$ curl http://domain.tld/api/blogs/
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[
+  {"id":1,"name":"Blog","user_id":1,"created_at":"2016-11-13 21:27:31","updated_at":"2016-11-13 21:27:31","deleted_at":null},
+  {"id":2,"name":"Blog","user_id":1,"created_at":"2016-11-13 21:42:17","updated_at":"2016-11-13 21:42:17","deleted_at":null}
+]
+```
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+---
 
-## Learning Laravel
+## GET /blogs/1
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+### Request Example
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+$ curl http://domain.tld/api/blogs/1
 
-## Contributing
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"name":"Blog","user_id":1,"created_at":"2016-11-13 21:27:31","updated_at":"2016-11-13 21:27:31","deleted_at":null}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+---
 
-## Security Vulnerabilities
+## GET /blogs/1/posts
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+### Request Example
 
-## License
+$ curl http://domain.tld/api/blogs/1/posts
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+[{"id":1,"title":"Title","content":"Content","user_id":1,"created_at":"2016-11-13 21:28:12","updated_at":"2016-11-13 21:28:12","deleted_at":null,"blog_id":1}]
+```
+
+---
+
+## POST /blogs
+
+### Request Example
+
+$ curl http://domain.tld/api/blogs -d '{"name": "NewBlog"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"name":"NewBlog","user_id":1,"updated_at":"2016-11-13 22:07:49","created_at":"2016-11-13 22:07:49","id":3}
+```
+
+---
+
+## POST /blogs/1/post
+
+### Request Example
+
+$ curl http://domain.tld/api/blogs/1/post -d '{"title": "PostTitle", "content": "PostContent"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"title":"PostTitle","content":"PostContent","user_id":1,"blog_id":1,"updated_at":"2016-11-13 22:09:43","created_at":"2016-11-13 22:09:43","id":2}
+```
+
+---
+
+## PATCH /blogs/1
+
+### Request Example
+
+$ curl http://domain.tld/api/blogs/1 -d '{"field": "name", "value": "EditedBlogName"}'
+
+### Response Example
+```
+200 OK
+Content-Type:application/json;charset=UTF-8
+{"id":1,"name":"EditedBlogName","user_id":1,"created_at":"2016-11-13 21:27:31","updated_at":"2016-11-13 22:13:01","deleted_at":null}
+```
+
+---
+
+## DELETE /blogs/1
+
+### Request Example
+
+$ curl http://domain.tld/api/blogs/1
+
+### Response Example
+```
+200 OK
+```
+
+# Posts
+
+# Comments
