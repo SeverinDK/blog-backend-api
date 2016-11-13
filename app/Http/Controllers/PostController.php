@@ -18,10 +18,6 @@ class PostController extends Controller
      */
     private $postRepository;
     /**
-     * @var BlogService
-     */
-    private $blogService;
-    /**
      * @var BlogRepository
      */
     private $blogRepository;
@@ -56,17 +52,6 @@ class PostController extends Controller
         return response()->json([], 404);
     }
 
-    public function getBlogPosts(int $id)
-    {
-        $posts = $this->blogRepository->get($id)->posts;
-
-        if($posts) {
-            return response()->json($posts, 200);
-        }
-
-        return response()->json([], 404);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -84,12 +69,16 @@ class PostController extends Controller
         return response()->json([], 404);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getComments($id)
     {
-        $comments = $this->postRepository->get($id)->comments;
+        $post = $this->postRepository->get($id);
 
-        if($comments) {
-            return response()->json($comments, 200);
+        if($post) {
+            return response()->json($post->comments, 200);
         }
 
         return response()->json([], 404);

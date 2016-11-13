@@ -63,6 +63,21 @@ class BlogController extends Controller
         return response()->json([], 404);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPosts(int $id)
+    {
+        $blog = $this->blogRepository->get($id);
+
+        if($blog) {
+            return response()->json($blog->posts, 200);
+        }
+
+        return response()->json([], 404);
+    }
+
 
     /**
      * @param Request $request

@@ -19,66 +19,31 @@ Route::get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'blogs'], function()
 {
-    // Get all blogs
     Route::get('/', 'BlogController@index');
-
-    // Show a blog
     Route::get('/{id}', 'BlogController@show');
-
-    // Store a new blog
+    Route::get('/{id}/posts', 'BlogController@getPosts');
     Route::post('/', 'BlogController@store');
-
-    // Update an existing blog
-    Route::patch('/{id}', 'BlogController@update');
-
-    // Delete a blog
-    Route::delete('/{id}', 'BlogController@destroy');
-
-    // Store new post in blog
     Route::post('/{id}/post', 'PostController@store');
-
-    // Get all posts for blog
-    Route::get('/{id}/posts', 'PostController@getBlogPosts');
+    Route::patch('/{id}', 'BlogController@update');
+    Route::delete('/{id}', 'BlogController@destroy');
 });
 
 Route::group(['prefix' => 'posts'], function()
 {
-    // Get all posts
     Route::get('/', 'PostController@index');
-
-    // Show a post
     Route::get('/{id}', 'PostController@show');
-
-    // Store comment for post
-    Route::post('/{id}/comment', 'CommentController@storePostComment');
-
-    // Update an existing post
-    Route::patch('/{id}', 'PostController@update');
-
-    // Delete a post
-    Route::delete('/{id}', 'PostController@destroy');
-
-    // Get all comments for a post
     Route::get('/{id}/comments', 'PostController@getComments');
+    Route::post('/{id}/comment', 'CommentController@storePostComment');
+    Route::patch('/{id}', 'PostController@update');
+    Route::delete('/{id}', 'PostController@destroy');
 });
 
 Route::group(['prefix' => 'comments'], function()
 {
-    // Get all comments
     Route::get('/', 'CommentController@index');
-
-    // Show a comment
     Route::get('/{id}', 'CommentController@show');
-
-    // Store comment reply
-    Route::post('/{id}/comment', 'CommentController@storeCommentReply');
-
-    // Update an existing comment
-    Route::patch('/{id}', 'CommentController@update');
-
-    // Delete a comment
-    Route::delete('/{id}', 'CommentController@destroy');
-
-    // Get all replies for a comment
     Route::get('/{id}/comments', 'CommentController@getComments');
+    Route::post('/{id}/comment', 'CommentController@storeCommentReply');
+    Route::patch('/{id}', 'CommentController@update');
+    Route::delete('/{id}', 'CommentController@destroy');
 });

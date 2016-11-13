@@ -33,10 +33,14 @@ class CommentService
     {
         $comment = $this->commentRepository->get($id);
 
-        return $comment->comments()->create([
-            'content' => $content,
-            'user_id' => 1
-        ]);
+        if($comment) {
+            return $comment->comments()->create([
+                'content' => $content,
+                'user_id' => 1
+            ]);
+        }
+
+        return false;
     }
 
     /**
@@ -48,6 +52,7 @@ class CommentService
     public function update($id, $field, $value)
     {
         $comment = $this->commentRepository->get($id);
+
         if($comment[$field] != null) {
             $comment[$field] = $value;
             return $this->commentRepository->save($comment);

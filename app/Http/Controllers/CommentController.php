@@ -75,10 +75,10 @@ class CommentController extends Controller
      */
     public function getComments($id)
     {
-        $comments = $this->commentRepository->get($id)->comments;
+        $comment = $this->commentRepository->get($id);
 
-        if($comments) {
-            return response()->json($comments, 200);
+        if($comment) {
+            return response()->json($comment->comments, 200);
         }
 
         return response()->json([], 404);

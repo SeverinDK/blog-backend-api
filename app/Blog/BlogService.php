@@ -26,6 +26,10 @@ class BlogService
         $this->blogRepository = $blogRepository;
     }
 
+    /*
+     * The plan was to use this function to handle posts created by authorized users.
+     * Authorizing a user would have happened through POST /api/session
+     */
     public function createForAuthorizedUser(string $name)
     {
         $blog = new Blog([
@@ -39,6 +43,7 @@ class BlogService
     public function update($id, $field, $value)
     {
         $blog = $this->blogRepository->get($id);
+
         if($blog[$field] != null) {
             $blog[$field] = $value;
             return $this->blogRepository->save($blog);

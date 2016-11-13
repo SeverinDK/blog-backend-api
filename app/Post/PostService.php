@@ -65,10 +65,14 @@ class PostService
     {
         $post = $this->postRepository->get($id);
 
-        return $post->comments()->create([
-            'content' => $content,
-            'user_id' => 1
-        ]);
+        if($post) {
+            return $post->comments()->create([
+                'content' => $content,
+                'user_id' => 1
+            ]);
+        }
+
+        return false;
     }
 
     public function delete($id)

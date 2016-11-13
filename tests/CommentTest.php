@@ -55,11 +55,19 @@ class CommentTest extends TestCase
             ]);
     }
 
+    public function testGetCommentsForAPost()
+    {
+        $this->get('/api/posts/1/comments')->seeStatusCode(200)->seeJson([
+           'id' => 1,
+            'content' => 'EditedComment'
+        ]);
+    }
+
     public function testDeleteAComment()
     {
         $this->delete('/api/comments/1')->seeStatusCode(200);
     }
-    
+
     public function testGetCommentThatDoesNotExist()
     {
         $this->get('/api/comments/3')->seeStatusCode(404);
