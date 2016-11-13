@@ -1,3 +1,6 @@
+# Test Results
+<img src="http://i.imgur.com/ettvM5z.png" />
+
 # Blogs
 
 ## GET /blogs
@@ -58,7 +61,7 @@ $ curl http://domain.tld/api/blogs -d '{"name": "NewBlog"}'
 ```
 200 OK
 Content-Type:application/json;charset=UTF-8
-{"name":"NewBlog","user_id":1,"updated_at":"2016-11-13 22:07:49","created_at":"2016-11-13 22:07:49","id":3}
+{"name":"NewBlog","user_id":1,"updated_at":"2016-11-13 22:07:49","created_at":"2016-11-13 22:07:49","id":1}
 ```
 
 ---
@@ -73,7 +76,7 @@ $ curl http://domain.tld/api/blogs/1/post -d '{"title": "PostTitle", "content": 
 ```
 200 OK
 Content-Type:application/json;charset=UTF-8
-{"title":"PostTitle","content":"PostContent","user_id":1,"blog_id":1,"updated_at":"2016-11-13 22:09:43","created_at":"2016-11-13 22:09:43","id":2}
+{"title":"PostTitle","content":"PostContent","user_id":1,"blog_id":1,"updated_at":"2016-11-13 22:09:43","created_at":"2016-11-13 22:09:43","id":1}
 ```
 
 ---
