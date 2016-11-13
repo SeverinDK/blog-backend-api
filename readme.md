@@ -187,7 +187,7 @@ Content-Type:application/json;charset=UTF-8
 
 ---
 
-## DELETE /blogs/1
+## DELETE /posts/1
 
 ### Request Example
 
